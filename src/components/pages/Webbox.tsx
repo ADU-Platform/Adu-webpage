@@ -1,28 +1,9 @@
-function Header() {
-  return <></>;
-}
-
-function Left() {
-  return <></>;
-}
-
-function Center() {
-  return <></>;
-}
-
-function Right() {
-  return <></>;
-}
+import WebboxHeader from "../UI/organisms/WebboxHeader";
 
 function Webbox() {
   return (
     <>
-      <Header></Header>
-      <>
-        <Left></Left>
-        <Center></Center>
-        <Right></Right>
-      </>
+      <WebboxHeader />
     </>
   );
 }
