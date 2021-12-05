@@ -1,10 +1,16 @@
-import WebboxHeader from "../UI/organisms/WebboxHeader";
+import styled from "styled-components";
+import CodeEditor from "../templates/CodeEditor";
+
+const Frame = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
 
 function Webbox() {
   return (
-    <>
-      <WebboxHeader />
-    </>
+    <Frame>
+      <CodeEditor />
+    </Frame>
   );
 }
 

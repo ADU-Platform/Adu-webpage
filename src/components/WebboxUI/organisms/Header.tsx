@@ -1,5 +1,5 @@
-import WebboxHeaderLeft from "../molecules/WebboxHeaderLeft";
-import NavbarHeaderRight from "../molecules/WebboxHeaderRight";
+import HeaderLeft from "../molecules/HeaderLeft";
+import HeaderRight from "../molecules/HeaderRight";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -15,8 +15,8 @@ const Container = styled.div`
 function Navbar() {
   return (
     <Container>
-      <WebboxHeaderLeft />
-      <NavbarHeaderRight />
+      <HeaderLeft />
+      <HeaderRight />
     </Container>
   );
 }
