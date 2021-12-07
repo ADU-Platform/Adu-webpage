@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import SignInBox from "../UI/account/organisms/SIgnInBox";
 
 const Frame = styled.div`
   width: 100vw;
@@ -13,11 +12,7 @@ const Frame = styled.div`
 `;
 
 function SignIn() {
-  return (
-    <Frame>
-      <SignInBox />
-    </Frame>
-  );
+  return <Frame></Frame>;
 }
 
 export default SignIn;
