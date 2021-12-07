@@ -5,7 +5,7 @@ export enum ToolKind {
   Packages,
   Setting,
 }
-interface ITool {
+export interface ITool {
   kind: ToolKind;
   isSelected: boolean;
 }

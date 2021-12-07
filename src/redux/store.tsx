@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import toolPickerSlice from "./toolPickerSlice";
+import userSlice from "./userSlice";
 
 export const store = configureStore({
-  reducer: { toolPicker: toolPickerSlice },
+  reducer: { toolPicker: toolPickerSlice, user: userSlice },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

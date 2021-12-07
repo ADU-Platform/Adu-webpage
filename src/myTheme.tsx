@@ -1,7 +1,4 @@
-// my-theme.ts
-import { DefaultTheme } from "styled-components";
-
-const myTheme: DefaultTheme = {
+const myTheme = {
   bg: {
     tile: "rgb(241, 243, 244)",
     root: "rgb(235, 236, 237)",
@@ -22,6 +19,9 @@ const myTheme: DefaultTheme = {
     default: "rgb(175, 177, 179)",
     dimmer: "rgb(192, 195, 196)",
     dimmest: "rgb(210, 212, 214)",
+  },
+  fr: {
+    livid: "rgb(106, 137, 204)",
   },
 };
 
