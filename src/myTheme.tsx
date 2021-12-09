@@ -1,4 +1,6 @@
-const myTheme = {
+import { DefaultTheme } from "styled-components";
+
+const myTheme: DefaultTheme = {
   bg: {
     tile: "rgb(241, 243, 244)",
     root: "rgb(235, 236, 237)",

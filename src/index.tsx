@@ -14,13 +14,10 @@ import { Provider } from "react-redux";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  //@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
   body {
-    //font-family: 'Source Sans Pro', sans-serif;
-    font-family: 'Open Sans', sans-serif;
-    
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
   a, a:hover, a:focus, a:active {
