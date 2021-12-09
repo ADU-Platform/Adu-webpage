@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Source Sans Pro', sans-serif;
   }
-
   a, a:hover, a:focus, a:active {
       text-decoration: none;
       color: inherit;
