@@ -25,8 +25,9 @@ const Frame = styled.div`
 
   display: flex;
   justify-content: space-between;
-`;
 
+  user-select: none;
+`;
 const Left = styled.div`
   width: 260px;
   height: 65px;
@@ -35,7 +36,7 @@ const Left = styled.div`
   justify-content: center;
   align-items: center;
 
-  gap: 10px;
+  gap: 20px;
 `;
 const Logo = styled(Link)`
   height: 44px;
@@ -63,14 +64,11 @@ const Right = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  gap: 10px;
 `;
 
 interface IProps {
   title: string;
 }
-
 function Navbar(props: IProps) {
   const user = useSelector((state: RootState) => state.user);
   

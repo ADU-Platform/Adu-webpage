@@ -16,12 +16,19 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap');
 
-  body {
+
+  html, body {
+    
     font-family: 'Source Sans Pro', sans-serif;
+    
   }
   a, a:hover, a:focus, a:active {
       text-decoration: none;
       color: inherit;
+  }
+
+  * {
+    
   }
 `;
 

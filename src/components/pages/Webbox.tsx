@@ -4,14 +4,13 @@ import CodeEditor from "../templates/CodeEditor";
 import Navbar from "../templates/Navbar";
 
 const Frame = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   background-color: ${(p) => p.theme.bg.root};
 `;
 
 function Webbox() {
-  
   return (
     <Frame>
       <Navbar title="WEBBOX"></Navbar>

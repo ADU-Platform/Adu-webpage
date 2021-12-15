@@ -1,9 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import toolPickerSlice from "./toolPickerSlice";
-import userSlice from "./userSlice";
+import userSlice from "../firebase/userSlice";
 
 export const store = configureStore({
-  reducer: { toolPicker: toolPickerSlice, user: userSlice },
+  reducer: { user: userSlice },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
