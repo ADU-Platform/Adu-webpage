@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Frame = styled.div``;
 
-function Divider() {
+function Home() {
   return <Frame></Frame>;
 }
 
-export default Divider;
+export default Home;

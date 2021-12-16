@@ -1,23 +1,34 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/pages/Home";
-import SignIn from "./components/pages/SignIn";
-import Webbox from "./components/pages/Webbox";
-
-import {print} from "adu-material-ui";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ConsoleHome from "./pages/console/ConsoleHome";
+import Home from "./pages/Home";
+/* import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import Webbox from "./pages/Webbox"; */
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Workroom" element={<Home />} />
-        <Route path="/Webbox" element={<Webbox />} />
-        <Route path="/Webbox/:roomId" element={<Webbox />} />
-        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/console" element={<ConsoleHome />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+/*
+
+import styled from "styled-components";
+
+const Frame = styled.div``;
+
+function Example() {
+  return <Frame></Frame>;
+}
+
+export default Example;
+
+*/
