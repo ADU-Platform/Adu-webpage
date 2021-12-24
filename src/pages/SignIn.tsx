@@ -36,32 +36,22 @@ const Frame = styled.div`
   }
 `;
 function SignIn() {
-  const {
-    email,
-    password,
-    handleEmailInput,
-    handlePasswordInput,
-    handleSubmit,
-    message,
-  } = useSignIn();
+  const { registerEmail, registerPassword, registerSubmit, message } =
+    useSignIn();
 
   return (
     <Frame>
       <Card className="card-main" size="350px">
         <Text size={Size.md}>Sign in to adu</Text>
         <Text>{message}</Text>
-        <form onSubmit={handleSubmit}>
+        <form {...registerSubmit}>
           <div className="field">
             <Text>Email</Text>
-            <input type="text" value={email} onChange={handleEmailInput} />
+            <input {...registerEmail} />
           </div>
           <div className="field">
             <Text>Password</Text>
-            <input
-              type="password"
-              value={password}
-              onChange={handlePasswordInput}
-            />
+            <input {...registerPassword} />
           </div>
           <Button full dark>
             Sign In

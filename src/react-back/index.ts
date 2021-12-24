@@ -18,15 +18,7 @@ export function useUser() {
 
   return user;
 }
-interface UseSignIn {
-  email: string,
-  password: string,
-  handleEmailInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handlePasswordInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handleSubmit: (event: React.SyntheticEvent) => void,
-  message?: string
-}
-export function useSignIn(): UseSignIn {
+export function useSignIn() {
   let active = true;
   const navigate = useNavigate();
 
@@ -108,11 +100,9 @@ export function useSignIn(): UseSignIn {
   }, [])
 
   return {
-    email,
-    password,
-    handleEmailInput,
-    handlePasswordInput,
-    handleSubmit,
+    registerEmail: { value: email, onChange: handleEmailInput, type: "text" },
+    registerPassword: { value: password, onChange: handlePasswordInput, type: "password" },
+    registerSubmit: { onSubmit: handleSubmit },
     message
   };
 }
