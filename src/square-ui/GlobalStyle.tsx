@@ -3,7 +3,7 @@ import styled from "styled-components";
 //style
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import { BackgroundColor, ForegroundColor } from "./types/Color";
+import { BackgroundColor, ForegroundColor } from "./types/Colors";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     font-family: 'Source Sans Pro', sans-serif;
     background-color: ${BackgroundColor.Root};
-    color: ${ForegroundColor.Dimmest}
+    color: ${ForegroundColor.Dimmest};
   }
 
   a, a:hover, a:focus, a:active {

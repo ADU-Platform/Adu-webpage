@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 enum BackgroundColor {
   Light = "#FFFFFF",
   Root = "#EBECED",
@@ -7,6 +9,7 @@ enum BackgroundColor {
 }
 
 enum ForegroundColor {
+  Dark = "#191919",
   Default = "#07080A",
   Dimmer = "#3D4047",
   Dimmest = "#5C5F66",

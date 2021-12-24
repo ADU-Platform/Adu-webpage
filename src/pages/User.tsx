@@ -1,16 +1,11 @@
-import { useEffect } from "react";
 import styled from "styled-components";
-
 import { Navbar } from "../square-ui/components/Navbar";
 
 const Frame = styled.div``;
-
-function Home() {
+export default function User() {
   return (
     <Frame>
       <Navbar userName={null}></Navbar>
     </Frame>
   );
 }
-
-export default Home;
