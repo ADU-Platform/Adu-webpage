@@ -18,7 +18,7 @@ interface Account {
 
 const Frame = styled.nav`
   width: 100vw;
-  height: 80px;
+  height: 60px;
 
   background-color: ${BackgroundColor.Default};
 

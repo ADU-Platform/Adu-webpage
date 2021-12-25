@@ -12,7 +12,7 @@ interface Props {
   disabled?: boolean;
   textAlign?: "center" | "left" | "right";
   hidden?: boolean;
-  
+
   onClick?: () => void;
 
   children?: any;
@@ -20,7 +20,7 @@ interface Props {
 
 const Frame = styled.button<Props>`
   width: ${(p) => (p.full ? "100%" : null)};
-  padding: 16px;
+  padding: 10px 16px;
 
   font-size: ${(p) => {
     let size = 17;

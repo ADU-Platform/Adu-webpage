@@ -1,7 +1,7 @@
 export interface UserInfo {
   uid: string,
   email: string,
-  username?: string,
+  username: string,
   emailVerified?: boolean,
   isAnonymous?: boolean,
   phoneNumber?: string,

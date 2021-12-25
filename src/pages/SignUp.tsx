@@ -10,14 +10,12 @@ import { Size } from "../square-ui/types/Size";
 
 const Frame = styled.div`
   width: 100vw;
-  height: 80vh;
+  height: 90vh;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  position: relative;
 
   .card-main {
     gap: 30px;
@@ -36,17 +34,12 @@ const Frame = styled.div`
 
 export default function SignUp() {
   const {
-    email,
-    password,
-    confirmPassword,
-    username,
-    phoneNumber,
-    handleEmailInput,
-    handlePasswordInput,
-    handleConfirmPasswordInput,
-    handleUsernameInput,
-    handlePhoneNumberInput,
-    handleSubmit,
+    registerSubmit,
+    registerEmail,
+    registerPassword,
+    registerConfirmPassword,
+    registerUsername,
+    registerPhoneNumber,
     message,
   } = useSignUp();
 
@@ -55,50 +48,26 @@ export default function SignUp() {
       <Card className="card-main" size="350px">
         <Text size={Size.md}>Welcome</Text>
         <Text>{message}</Text>
-        <form onSubmit={handleSubmit}>
+        <form {...registerSubmit}>
           <div className="field">
             <Text>Email</Text>
-            <input
-              type="text"
-              onChange={handleEmailInput}
-              value={email}
-              placeholder="required"
-            />
+            <input {...registerEmail} />
           </div>
           <div className="field">
             <Text>Password</Text>
-            <input
-              type="password"
-              onChange={handlePasswordInput}
-              value={password}
-              placeholder="required"
-            />
+            <input {...registerPassword} />
           </div>
           <div className="field">
             <Text>Confirm Password</Text>
-            <input
-              type="password"
-              onChange={handleConfirmPasswordInput}
-              value={confirmPassword}
-              placeholder="required"
-            />
+            <input {...registerConfirmPassword} />
           </div>
           <div className="field">
             <Text>Username</Text>
-            <input
-              type="text"
-              onChange={handleUsernameInput}
-              value={username}
-              placeholder="required"
-            />
+            <input {...registerUsername} />
           </div>
           <div className="field">
             <Text>Phone Number</Text>
-            <input
-              type="text"
-              onChange={handlePhoneNumberInput}
-              value={phoneNumber}
-            />
+            <input {...registerPhoneNumber} />
           </div>
           <Button full dark>
             Sign Up

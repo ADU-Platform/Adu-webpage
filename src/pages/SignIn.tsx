@@ -12,14 +12,12 @@ import { Size } from "../square-ui/types/Size";
 
 const Frame = styled.div`
   width: 100vw;
-  height: 80vh;
+  height: 90vh;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  position: relative;
 
   .card-main {
     gap: 30px;
@@ -36,7 +34,7 @@ const Frame = styled.div`
   }
 `;
 function SignIn() {
-  const { registerEmail, registerPassword, registerSubmit, message } =
+  const { registerSubmit, registerEmail, registerPassword, message } =
     useSignIn();
 
   return (

@@ -1,20 +1,41 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import {
+  getUser,
   newOrganization,
   newPerson,
-  signInWithFirebase, signUpWithFirebase,
+  reloadAuth,
+  signInWithFirebase, signOutWithFirebase, signUpWithFirebase,
 } from "./firebase/core";
 
 //interfaces
+import { User } from "firebase/auth";
 import { UserInfo } from "./interfaces"
 
 //util
 import { v4 as uuidv4 } from 'uuid';
 
 export function useUser() {
-  const active = true;
-  const [user, setUser] = useState<UserInfo>();
+  let active = true;
+  const [user, setUser] = useState<User | null>(getUser());
+
+  useEffect(() => {
+    if (!user) {
+      reloadAuth(
+        //load is success
+        (user) => {
+          if (active) setUser(user);
+        },
+        //failure
+        () => { },
+      );
+    }
+
+    //clean up function
+    return () => {
+      active = false;
+    }
+  }, [])
 
   return user;
 }
@@ -106,21 +127,7 @@ export function useSignIn() {
     message
   };
 }
-interface UseSignUp {
-  email: string,
-  password: string,
-  confirmPassword: string,
-  username: string,
-  phoneNumber: string,
-  handleEmailInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handlePasswordInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handleConfirmPasswordInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handleUsernameInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handlePhoneNumberInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handleSubmit: (event: React.SyntheticEvent) => void,
-  message?: string
-}
-export function useSignUp(): UseSignUp {
+export function useSignUp() {
   let active = true;
   const navigate = useNavigate();
 
@@ -250,17 +257,21 @@ export function useSignUp(): UseSignUp {
   }, [])
 
   return {
-    email,
-    password,
-    confirmPassword,
-    username,
-    phoneNumber,
-    handleEmailInput,
-    handlePasswordInput,
-    handleConfirmPasswordInput,
-    handleUsernameInput,
-    handlePhoneNumberInput,
-    handleSubmit,
+    registerEmail: { value: email, onChange: handleEmailInput, type: "text", placeholder: "required" },
+    registerPassword: { value: password, onChange: handlePasswordInput, type: "password", placeholder: "required" },
+    registerConfirmPassword: { value: confirmPassword, onChange: handleConfirmPasswordInput, type: "password", placeholder: "required" },
+    registerUsername: { value: username, onChange: handleUsernameInput, type: "text", placeholder: "required" },
+    registerPhoneNumber: { value: phoneNumber, onChange: handlePhoneNumberInput, type: "text" },
+    registerSubmit: { onSubmit: handleSubmit },
     message
   }
+}
+export function useSignOut() {
+  const navigate = useNavigate();
+
+  signOutWithFirebase(
+    () => {
+      navigate("/");
+    }
+  );
 }

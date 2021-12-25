@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,19 +19,21 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 //fireauth
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 const auth = getAuth();
 
 //firestore
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 const db = getFirestore();
 
 //other stuff
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Organization, UserInfo } from "../interfaces";
+import { personConverter } from "./converters";
 
 /*
-authentication
+<authentication>
 signInWithFirebase, signUpWithFirebase, signOutWithFirebase
+getUser, reloadAuth
 */
 export async function signInWithFirebase(
   email: string,
@@ -48,7 +49,7 @@ export async function signInWithFirebase(
       successFunc({
         uid: user.uid,
         email: email,
-        username: user.displayName || undefined,
+        username: user.displayName || "",  //username never is undefined or null, ""
         emailVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,
         phoneNumber: user.phoneNumber || undefined,
@@ -110,11 +111,41 @@ export async function signUpWithFirebase(
     });
 
 }
+export async function signOutWithFirebase(
+  successFunc?: () => void
+) {
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    if (successFunc) successFunc();
+  }).catch((error) => {
+    // An error happened.
+    //there is no error code...
+    //https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signout
+  });
+}
+export function getUser() {
+  return auth.currentUser;
+}
+export async function reloadAuth(
+  successFunc: (user: User) => void,
+  failFunc: () => void
+) {
+  await onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      successFunc(user);
+    } else {
+      // User is signed out
+      failFunc();
+    }
+  });
+}
 
 /*
-firestore
+<firestore>
 newOrganization, 
-newPerson, updatePerson
+newPerson, updatePerson, getPerson
 newProject,
 */
 export async function newOrganization(
@@ -126,6 +157,22 @@ export async function newPerson(
   user: UserInfo
 ) {
   await setDoc(doc(db, "people", user.uid), user);
+}
+export async function getPerson(
+  uid: string,
+  successFunc: (user: UserInfo) => void,
+  failFunc: () => void
+) {
+  const docRef = doc(db, "people", uid).withConverter(personConverter);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    //console.log("Document data:", docSnap.data());
+    successFunc(docSnap.data());
+  } else {
+    failFunc();
+  }
+
 }
 export async function newProject() {
   await setDoc(doc(db, "projects", "LA"), {
