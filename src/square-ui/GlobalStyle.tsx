@@ -1,9 +1,7 @@
-import styled from "styled-components";
-
 //style
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import { BackgroundColor, ForegroundColor } from "./types/Colors";
+import { BackgroundColor, ForegroundColor } from "./styles/Colors";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -13,13 +11,15 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     font-family: 'Source Sans Pro', sans-serif;
     background-color: ${BackgroundColor.Root};
-    color: ${ForegroundColor.Dimmest};
   }
 
   a, a:hover, a:focus, a:active {
       text-decoration: none;
       color: inherit;
       user-select: none;
+  }
+  span {
+    color: ${ForegroundColor.Default};
   }
 `;
 

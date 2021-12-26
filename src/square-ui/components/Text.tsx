@@ -1,42 +1,17 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BackgroundColor, ForegroundColor } from "../types/Colors";
-import { Size } from "../types/Size";
+import { StandardProps } from "../styles/Standard";
 
-interface Props {
-  size?: Size;
-  dark?: boolean;
-  children: any;
-  hidden?: boolean;
-}
+interface Props {}
 const Frame = styled.span<Props>`
-  color: ${(p) => (p.dark ? BackgroundColor.Light : ForegroundColor.Dark)};
-  font-size: ${(p) => {
-    let size = 17;
-    if (p.size) size *= p.size * 1.5;
-
-    return `${size}px`;
-  }};
+  a {
+    cursor: default;
+  }
 `;
-
-export function Text(props: Props) {
-  return <Frame {...props}>{props.children}</Frame>;
-}
-
-interface PropsForLink {
-  to: string;
-}
-const FrameForLink = styled(Frame)<PropsForLink>``;
-export function TextForLink(props: PropsForLink & Props) {
+export default function Text(p: Props & StandardProps) {
   return (
-    <FrameForLink as={Link} {...props}>
-      {props.children}
-    </FrameForLink>
+    <Frame style={p}>
+      <Link to={p.href || ""}>{p.children}</Link>
+    </Frame>
   );
-}
-
-interface PropsForIcon {}
-const FrameForIcon = styled(Frame)<PropsForIcon>``;
-export function TextForIcon(props: PropsForIcon & Props) {
-  return <FrameForIcon {...props}></FrameForIcon>;
 }

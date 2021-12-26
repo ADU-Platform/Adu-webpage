@@ -1,53 +1,40 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-//pages
-import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
-import SignOut from "./pages/SignOut";
-import User from "./pages/User";
+//default
+import HomeInDefault from "./pages/default/Home";
+import SignInInDefault from "./pages/default/SignIn";
+import SignUpInDefault from "./pages/default/SignUp";
+import SignOutInDefault from "./pages/default/SignOut";
 
-import Workspace_Home from "./pages/workspace/Home";
-import Workspace_Projects from "./pages/workspace/Projects";
+//design
+import HomeInDesign from "./pages/design/Home";
 
-import Physicalcomputing_Home from "./pages/workspace/physicalcomputing/Home";
-import Physicalcomputing_IDE from "./pages/workspace/physicalcomputing/IDE";
-import Physicalcomputing_Register from "./pages/workspace/physicalcomputing/Register";
-import SignUp from "./pages/SignUp";
+//workspace
+import HomeInWorkspace from "./pages/workspace/Home";
 
-function App() {
+//etcetera
+import NotFoundPage from "./pages/etcetera/NotFoundPage";
+
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signout" element={<SignOut />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/">
+          <Route path="" element={<HomeInDefault />} />
+          <Route path="signin" element={<SignInInDefault />} />
+          <Route path="signup" element={<SignUpInDefault />} />
+          <Route path="signout" element={<SignOutInDefault />} />
+        </Route>
+        <Route path="/workspace">
+          <Route path="" element={<HomeInWorkspace />} />
+        </Route>
+        <Route path="/design">
+          <Route path="" element={<HomeInDesign />} />
+        </Route>
 
-        <Route path="/workspace" element={<Workspace_Home />} />
-        <Route path="/workspace/projects" element={<Workspace_Projects />} />
-        <Route
-          path="/workspace/projects/:projectUuid"
-          element={<Workspace_Projects />}
-        />
-
-        <Route
-          path="/workspace/physicalcomputing/home"
-          element={<Physicalcomputing_Home />}
-        />
-        <Route
-          path="/workspace/physicalcomputing/ide"
-          element={<Physicalcomputing_IDE />}
-        />
-
-        <Route
-          path="/workspace/physicalcomputing/reg  ister"
-          element={<Physicalcomputing_Register />}
-        />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
