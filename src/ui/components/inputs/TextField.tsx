@@ -1,8 +1,5 @@
 import styled, { css } from "styled-components";
-import {
-  BackgroundColor,
-  ForegroundColor,
-} from "../../../square-ui/styles/Colors";
+import { BackgroundColor, ForegroundColor } from "../../styles/Colors";
 import { FontSizes, FontWeights } from "../../styles/typography";
 
 interface Props {

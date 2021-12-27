@@ -35,7 +35,7 @@ export default function SignUp() {
           <TextField size="small" {...registerEmail} />
           <TextField size="small" {...registerPassword} />
           <TextField size="small" {...registerConfirmPassword} />
-          <TextField  size="small" {...registerUsername} />
+          <TextField size="small" {...registerUsername} />
           <TextField size="small" {...registerPhoneNumber} />
 
           <Button type="submit" full contained value="Sign Up" />
@@ -72,14 +72,6 @@ const Frame = styled.div`
     align-items: center;
     gap: 20px;
   }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 5px;
-  }
-
   .warning-message {
     color: red;
   }

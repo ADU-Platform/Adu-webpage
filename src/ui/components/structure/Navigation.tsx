@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BackgroundColor } from "../../../square-ui/styles/Colors";
+import { BackgroundColor } from "../../styles/Colors";
 import Button from "../inputs/Button";
 
 interface Props {}

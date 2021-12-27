@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import {
-  BackgroundColor,
-  ForegroundColor,
-} from "../../../square-ui/styles/Colors";
+import { BackgroundColor, ForegroundColor } from "../../styles/Colors";
 import { FontSizes, FontWeights } from "../../styles/typography";
 
 interface Props {
@@ -27,12 +24,17 @@ interface Props {
   type?: "button" | "submit" | "reset";
 }
 export default function Button(p: Props) {
+  const navigate = useNavigate();
   return (
-    <Frame {...p} style={p}>
-      <Link to={p.href || ""}>
-        {p.icon}
-        {p.value}
-      </Link>
+    <Frame
+      {...p}
+      style={p}
+      onClick={() => {
+        if (p.href) navigate(p.href);
+      }}
+    >
+      {p.icon}
+      {p.value}
     </Frame>
   );
 }

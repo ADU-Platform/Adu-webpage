@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  BackgroundColor,
-  ForegroundColor,
-} from "../../square-ui/styles/Colors";
+import { BackgroundColor, ForegroundColor } from "../../ui/styles/Colors";
 export default function Home() {
   return (
     <Frame>

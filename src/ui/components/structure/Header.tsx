@@ -1,12 +1,15 @@
 import styled from "styled-components";
-import { BackgroundColor } from "../../../square-ui/styles/Colors";
+import { BackgroundColor } from "../../styles/Colors";
 import { FontSizes, FontWeights } from "../../styles/typography";
 import Heading from "../data display/Heading";
 import Button from "../inputs/Button";
 
 import { VscSettingsGear, VscQuestion } from "react-icons/vsc";
+import { User } from "firebase/auth";
 
-interface Props {}
+interface Props {
+  user: User | null;
+}
 export default function Header(p: Props) {
   return (
     <Frame {...p}>
@@ -17,7 +20,10 @@ export default function Header(p: Props) {
           <Button text value="Support" href="/support" fontSize="14px" />
           <Button text icon={<VscSettingsGear />} href="/setting" />
         </div>
-        <div className="account">
+        <div hidden={p.user === null} className="user">
+          <Button text value={p.user?.email || ""} href="/user" />
+        </div>
+        <div hidden={p.user !== null} className="account">
           <Button text value="Sign In" href="/signin" />
           <Button contained value="Sign Up" href="/signup" />
         </div>

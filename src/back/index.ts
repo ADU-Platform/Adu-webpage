@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   findPersonUsingEmail,
   getUser,
@@ -16,19 +16,31 @@ import { UserInfo } from "./interfaces"
 //util
 import { v4 as uuidv4 } from 'uuid';
 
-export function useUser() {
+//normal function
+export function useUser(
+  options?: {
+    checkAccount?: {
+      //where did request it?,
+      pastPagePath: string,
+    }
+  }
+) {
   let active = true;
-  const [user, setUser] = useState<User | null>(getUser());
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     if (!user) {
       reloadAuth(
-        //load is success
+        //there is account!
         (user) => {
           if (active) setUser(user);
         },
-        //failure
-        () => { },
+        //no account
+        () => {
+          //debug
+          //console.log("no account!");
+          
+        },
       );
     }
 
@@ -41,6 +53,12 @@ export function useUser() {
   return user;
 }
 export function useSignIn() {
+  //get a state for redirent the past page
+  const { state } = useLocation();
+  //debug
+  //console.log(state);
+  //console.log(state.pastPagePath);
+
   let active = true;
   const navigate = useNavigate();
 
@@ -84,7 +102,7 @@ export function useSignIn() {
       active = false;
 
       //go to the home
-      navigate("/");
+      navigate(state.pastPagePath || "/");
     }
     //if error about sign in with firebase, the below is excuting.
     const failFunc = (error: any) => {
@@ -128,8 +146,16 @@ export function useSignIn() {
   }, [])
 
   return {
-    registerEmail: { value: email, onChange: handleEmailInput, type: "text" },
-    registerPassword: { value: password, onChange: handlePasswordInput, type: "password" },
+    registerEmail: {
+      //it is normal attributes in html
+      value: email, onChange: handleEmailInput, type: "text",
+      //for material ui
+      label: "Email"
+    },
+    registerPassword: {
+      value: password, onChange: handlePasswordInput, type: "password",
+      label: "Password"
+    },
     registerSubmit: { onSubmit: handleSubmit },
     message, loading
   };
@@ -141,19 +167,15 @@ export function useSignUp() {
   //for submit
   const [loading, setLoading] = useState<boolean>(false);
 
-  //for input field
+  //input value state
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
-  //for excuting sign up 
+  //after excuting sign up 
   const [message, setMessage] = useState<string>();
-
-  //helper for valid email and username
-  const [emailHelperText, setEmailHelperText] = useState<string>();
-  const [usernameHelperText, setUsernameHelperText] = useState<string>();
 
   const handleEmailInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value);
@@ -172,7 +194,8 @@ export function useSignUp() {
   }
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-
+    //debug
+    // console.log("submit");
     /*
     Required input
       email, password, username
@@ -265,11 +288,6 @@ export function useSignUp() {
       .finally(() => {
         setLoading(false);
       });
-
-    async function hellp() {
-      return "hello"
-    }
-    hellp().then((value) => { console.log(value) })
   }
 
   useEffect(() => {
@@ -279,32 +297,29 @@ export function useSignUp() {
     }
   }, [])
 
-  //email checker
-  const waitingTime = 1000;
-  let [emailTimer, setEmailTimer] = useState<NodeJS.Timeout>();
-  useEffect(() => {
-    //Run when user finishes typing
-    if (emailTimer) clearTimeout(emailTimer);
-    setEmailTimer(setTimeout(() => {
-      setEmailHelperText("Verifying the email...");
-      findPersonUsingEmail(email)
-        .then((exist) => {
-          if (!exist) setEmailHelperText("The email address is valid.");
-          else setEmailHelperText("Don't use this email.");
-        });
-    }, waitingTime));
-  }, [email]);
-  //username checker
-  useEffect(() => {
-
-  }, [username]);
-
   return {
-    registerEmail: { helperText: emailHelperText, value: email, onChange: handleEmailInput, type: "text", label: "Email", required: true },
-    registerPassword: { value: password, onChange: handlePasswordInput, type: "password", label: "Password", required: true },
-    registerConfirmPassword: { value: confirmPassword, onChange: handleConfirmPasswordInput, type: "password", label: "Confirm Password", required: true },
-    registerUsername: { value: username, onChange: handleUsernameInput, type: "text", label: "Username", required: true },
-    registerPhoneNumber: { value: phoneNumber, onChange: handlePhoneNumberInput, type: "text", label: "Phone Number" },
+    registerEmail: {
+      //it is normal attributes in html
+      value: email, onChange: handleEmailInput, type: "text",
+      //for material ui
+      label: "Email", required: true,
+    },
+    registerPassword: {
+      value: password, onChange: handlePasswordInput, type: "password",
+      label: "Password", required: true
+    },
+    registerConfirmPassword: {
+      value: confirmPassword, onChange: handleConfirmPasswordInput, type: "password",
+      label: "Confirm Password", required: true
+    },
+    registerUsername: {
+      value: username, onChange: handleUsernameInput, type: "text",
+      label: "Username", required: true
+    },
+    registerPhoneNumber: {
+      value: phoneNumber, onChange: handlePhoneNumberInput, type: "text",
+      label: "Phone Number"
+    },
     registerSubmit: { onSubmit: handleSubmit },
     message, loading
   }
@@ -317,4 +332,30 @@ export function useSignOut() {
       navigate("/");
     }
   );
+}
+
+//function for physical computing
+/*
+hooks 
+-> useEditor
+
+*/
+
+export function useEditor() {
+  const user = useUser();
+  const navigate = useNavigate();
+  /* useEffect(() => {
+    if (!user) {
+      //if no account, go to the sign in page
+      navigate("/signin", {
+        state: {
+          pastPagePath: "/physicalcomputing/editor"
+        }
+      });
+      //debug
+      console.log("no account");
+    }
+  }, []) */
+
+  return { user };
 }

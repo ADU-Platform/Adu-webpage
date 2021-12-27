@@ -163,17 +163,14 @@ export async function newPerson(
 }
 export async function getPerson(
   uid: string,
-  successFunc: (user: UserInfo) => void,
-  failFunc: () => void
 ) {
   const docRef = doc(db, PEOPLE, uid).withConverter(personConverter);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
     //console.log("Document data:", docSnap.data());
-    successFunc(docSnap.data());
+    return docSnap.data();
   } else {
-    failFunc();
   }
 
 }

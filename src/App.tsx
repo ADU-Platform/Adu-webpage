@@ -13,6 +13,10 @@ import HomeInDesign from "./pages/design/Home";
 //workspace
 import HomeInWorkspace from "./pages/workspace/Home";
 
+//physical computing
+import HomeInPhysicalcomputing from "./pages/physicalcomputing/Home";
+import EditorInPhysicalcomputing from "./pages/physicalcomputing/Editor";
+
 //etcetera
 import NotFoundPage from "./pages/etcetera/NotFoundPage";
 
@@ -26,11 +30,15 @@ export default function App() {
           <Route path="signup" element={<SignUpInDefault />} />
           <Route path="signout" element={<SignOutInDefault />} />
         </Route>
+        <Route path="/design">
+          <Route path="" element={<HomeInDesign />} />
+        </Route>
         <Route path="/workspace">
           <Route path="" element={<HomeInWorkspace />} />
         </Route>
-        <Route path="/design">
-          <Route path="" element={<HomeInDesign />} />
+        <Route path="/physicalcomputing">
+          <Route path="" element={<HomeInPhysicalcomputing />} />
+          <Route path="editor" element={<EditorInPhysicalcomputing />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
