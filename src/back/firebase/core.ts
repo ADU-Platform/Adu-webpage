@@ -123,8 +123,19 @@ export async function signOutWithFirebase(
     //https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signout
   });
 }
-export function getUser() {
-  return auth.currentUser;
+export async function getUser() {
+  try {
+    if (auth.currentUser) {
+      return auth.currentUser;
+    } else {
+      throw new Error("no account");
+    }
+  } catch (e) {
+    //debug
+    //console.log("getUser -> catch -> ", e);
+    throw e;
+  }
+
 }
 export async function reloadAuth(
   successFunc: (user: User) => void,
@@ -144,7 +155,7 @@ export async function reloadAuth(
 
 /*
 <firestore>
-newOrganization, 
+newOrganization, getOrganizations
 newPerson, updatePerson, getPerson, findPersonUsingUsername, findPersonUsingEmail
 newProject,
 */
@@ -155,6 +166,9 @@ export async function newOrganization(
   org: Organization
 ) {
   await setDoc(doc(db, ORGANIZATIONS, org.uuid), org);
+}
+export async function getOrganizations(userUid: string) {
+  
 }
 export async function newPerson(
   user: UserInfo

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   findPersonUsingEmail,
+  getPerson,
   getUser,
   newOrganization,
   newPerson,
@@ -11,10 +12,11 @@ import {
 
 //interfaces
 import { User } from "firebase/auth";
-import { UserInfo } from "./interfaces"
+import { Organization, UserInfo } from "./interfaces"
 
 //util
 import { v4 as uuidv4 } from 'uuid';
+import { userInfo } from "os";
 
 //normal function
 export function useUser(
@@ -26,23 +28,49 @@ export function useUser(
   }
 ) {
   let active = true;
-  const [user, setUser] = useState<User>();
+  const navigate = useNavigate();
+  const [user, setUser] = useState<UserInfo>();
 
   useEffect(() => {
-    if (!user) {
-      reloadAuth(
-        //there is account!
-        (user) => {
-          if (active) setUser(user);
-        },
-        //no account
-        () => {
-          //debug
-          //console.log("no account!");
-          
-        },
-      );
-    }
+    getUser()
+      .then((user) => {
+        //console.log(user);
+
+        //load the userInfo, when the page refresh
+        getPerson(user.uid).then((userInfo) => {
+          if (active) setUser(userInfo);
+        });
+      })
+      .catch((error) => {
+        //console.log(error);
+        reloadAuth(
+          //there is account!
+          (user) => {
+            //alter User class to UserInfo class
+            getPerson(user.uid).then((userInfo) => {
+              if (active) setUser(userInfo);
+            });
+
+          },
+          //no account
+          () => {
+            //debug
+            console.log("no account!");
+
+            //if no account, go to the sign in page
+            if (options?.checkAccount?.pastPagePath)
+              navigate("/signin", {
+                state: {
+                  pastPagePath: options?.checkAccount?.pastPagePath
+                }
+              });
+
+          },
+        );
+      });
+
+
+
 
     //clean up function
     return () => {
@@ -334,28 +362,54 @@ export function useSignOut() {
   );
 }
 
-//function for physical computing
 /*
+function for physical computing
+
 hooks 
 -> useEditor
 
 */
 
 export function useEditor() {
-  const user = useUser();
-  const navigate = useNavigate();
-  /* useEffect(() => {
-    if (!user) {
-      //if no account, go to the sign in page
-      navigate("/signin", {
-        state: {
-          pastPagePath: "/physicalcomputing/editor"
-        }
-      });
-      //debug
-      console.log("no account");
+  const user = useUser({
+    checkAccount: {
+      pastPagePath: "/physicalcomputing/editor"
     }
-  }, []) */
+  });
+
 
   return { user };
+}
+
+/*
+function for workspace
+
+hooks 
+-> useOrganizations, useProjects
+*/
+export function useOrganizations() {
+  const user = useUser();
+
+  //get a organizations
+  //const userInfo = getPerson(user?.uid);
+
+
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  return {
+    currentIndex, setCurrentIndex, organizations, setOrganizations
+  }
+}
+export function useProjects() {
+  const user = useUser();
+
+
+
+  return {
+    registerAddProject: {
+    },
+    registerAddingProject: {
+
+    }
+  }
 }

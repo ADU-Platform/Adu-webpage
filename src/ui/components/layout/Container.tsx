@@ -3,9 +3,13 @@ import { BackgroundColor } from "../../styles/Colors";
 import { FontSizes, FontWeights } from "../../styles/typography";
 
 interface Props {
+  width?: string;
   className?: string;
 
   children?: any;
+
+  hidden?: boolean;
+  onClick?: () => void;
 }
 export default function Container(p: Props) {
   return (
@@ -17,6 +21,7 @@ export default function Container(p: Props) {
 
 const Frame = styled.div<Props>`
   width: 300px;
+  width: ${(p) => p.width || null};
   padding: 20px;
 
   border-radius: 4px;

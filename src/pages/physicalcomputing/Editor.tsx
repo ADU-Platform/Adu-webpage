@@ -12,8 +12,9 @@ export default function Editor() {
     <Frame>
       <header>
         <div className="user-profile">
-          <VscAccount />
+          <Button fontSize="24px" icon={<VscAccount />} />
           <Heading value={user?.email || ""} />
+          <Heading value="/" />
         </div>
         <Button></Button>
       </header>
@@ -29,8 +30,15 @@ const Frame = styled.div`
 
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 
     background-color: ${BackgroundColor.Default};
+  }
+
+  .user-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
   }
 `;

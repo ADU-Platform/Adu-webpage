@@ -5,10 +5,10 @@ import Heading from "../data display/Heading";
 import Button from "../inputs/Button";
 
 import { VscSettingsGear, VscQuestion } from "react-icons/vsc";
-import { User } from "firebase/auth";
+import { UserInfo } from "../../../back/interfaces";
 
 interface Props {
-  user: User | null;
+  user?: UserInfo;
 }
 export default function Header(p: Props) {
   return (
@@ -20,10 +20,10 @@ export default function Header(p: Props) {
           <Button text value="Support" href="/support" fontSize="14px" />
           <Button text icon={<VscSettingsGear />} href="/setting" />
         </div>
-        <div hidden={p.user === null} className="user">
+        <div hidden={p.user === undefined} className="user">
           <Button text value={p.user?.email || ""} href="/user" />
         </div>
-        <div hidden={p.user !== null} className="account">
+        <div hidden={p.user !== undefined} className="account">
           <Button text value="Sign In" href="/signin" />
           <Button contained value="Sign Up" href="/signup" />
         </div>

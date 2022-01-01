@@ -12,6 +12,7 @@ import HomeInDesign from "./pages/design/Home";
 
 //workspace
 import HomeInWorkspace from "./pages/workspace/Home";
+import ProjectsInWorkspace from "./pages/workspace/Projects";
 
 //physical computing
 import HomeInPhysicalcomputing from "./pages/physicalcomputing/Home";
@@ -35,6 +36,7 @@ export default function App() {
         </Route>
         <Route path="/workspace">
           <Route path="" element={<HomeInWorkspace />} />
+          <Route path="projects" element={<ProjectsInWorkspace />} />
         </Route>
         <Route path="/physicalcomputing">
           <Route path="" element={<HomeInPhysicalcomputing />} />

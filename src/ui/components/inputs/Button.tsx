@@ -22,6 +22,8 @@ interface Props {
   //other
   full?: boolean;
   type?: "button" | "submit" | "reset";
+  className?: string;
+  onClick?: () => void;
 }
 export default function Button(p: Props) {
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ export default function Button(p: Props) {
       style={p}
       onClick={() => {
         if (p.href) navigate(p.href);
+        if (p.onClick) p.onClick();
       }}
     >
       {p.icon}
