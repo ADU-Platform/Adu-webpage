@@ -55,7 +55,7 @@ export function useUser(
           //no account
           () => {
             //debug
-            console.log("no account!");
+            // console.log("no account!");
 
             //if no account, go to the sign in page
             if (options?.checkAccount?.pastPagePath)
